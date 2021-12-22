@@ -1,0 +1,161 @@
+<!-- Master Data Update-->
+<template>
+    <lightning-card title="Master Data Update" icon-name="custom:custom83">
+
+        <div class="slds-m-around_medium slds-align_absolute-center">
+            <lightning-button variant="Neutral" label="Verify" class="slds-m-around_xxx-small"
+                              title="Verify" onclick={handleVerify}></lightning-button>
+            <lightning-button variant="Neutral" label="Cancel" class="slds-m-around_xxx-small"
+                              title="Cancel" onclick={handleCancel}></lightning-button>
+        </div>
+        <div class="slds-m-around_medium">
+            <lightning-accordion active-section-name="A" allow-multiple-sections-open>
+                <lightning-accordion-section name="NewAddressData" label="New Address Data">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3">
+                            <!--input fields-->
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="accountName"
+                                                     field-label="New Account Name"
+                                                     field-name="Name" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="accountAddOn"
+                                                     field-label="New Account Add-On"
+                                                     field-name="AccountAddOn__c" field-variant="label-hidden"
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <!--template if:false={isLegalAddress}-->
+                            <!--SET TO TRUE-->
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="AccountStreet"
+                                                     field-label="New Street 1"
+                                                     field-name="BillingStreet" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="AccountStreet2"
+                                                     field-label="New Street 2"
+                                                     field-name="BillingStreet" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="zipCode"
+                                                     field-label="New Zip Code"
+                                                     field-name="BillingPostalCode" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="BillingCity"
+                                                     field-label="New City"
+                                                     field-name="BillingCity" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <c-lightning-input-field object-api-name="Debtor__c"
+                                                     element-id="AccountCountry"
+                                                     field-label="New Country"
+                                                     field-name="DebtorCountry__c" field-variant="label-hidden" is-picklist=true
+                                                     is-required=false onpicklistvalueselected={handlePicklistValueSelected}></c-lightning-input-field>
+                            <!--REPLACE onpicklistvalueselected={handlePicklistValueSelected}-->
+                            <c-lightning-input-field object-api-name="Account"
+                                                     element-id="AccountState"
+                                                     field-label="New Province"
+                                                     field-name="BillingState" field-variant="label-hidden" is-input-field=true
+                                                     is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                            <!--/template-->
+                            <!--template if:false={isLegalAddress}>
+                               </template-->
+                        </div>
+                        <div class="slds-col slds-size_1-of-3"></div>
+                        <div class="slds-col slds-size_1-of-3"></div>
+                    </div><br/>
+                    <!--data to update-->
+                    <div class="slds-text-heading_small slds-text-title_bold">Account Addresses</div><br/>
+                    <div class="slds-m-around_medium" ><!--if:true={listSubscriptions}-->
+                        <lightning-datatable
+                                key-field="accountAddressId"
+                                hide-row-number-column
+                                show-checkbox-column
+                                data={accountAddressesTransformed}
+                                columns={accountAddressColumns}>
+                        </lightning-datatable>
+                    </div>
+
+                    <div class="slds-text-heading_small slds-text-title_bold">Debtor</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Online Account</div><br/>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="NewEMailData" label="New E-Mail Data">
+                    <!--input fields-->
+                    <div class="slds-col slds-size_1-of-3">
+                        <c-lightning-input-field object-api-name="Account"
+                                                 element-id="newEmail"
+                                                 field-label="New E-Mail"
+                                                 field-name="Email__c" field-variant="label-hidden" is-input-field=true
+                                                 is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field>
+                    </div><br/>
+                    <div class="slds-col slds-size_1-of-3"></div>
+                    <div class="slds-col slds-size_1-of-3"></div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Account Email</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Contact</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Debtor</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Online Contact</div><br/>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="NewPhoneData" label="New Phone Data">
+                    <div class="slds-col slds-size_2-of-3"></div>
+                    <!--New Phone-->
+                    <lightning-layout>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newPhoneCode"
+                                field-label="New Phone" placeholder="Phone Country Code"
+                                field-variant="label-hidden" is-input=true is-label-one-line= true  max-length="3"
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newPhoneAreaCode"
+                                is-input=true  field-type="number" placeholder="Phone Area Code" max-length="8" is-no-label=true
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field element-id="newPhoneNumber" field-variant="label-hidden"
+                                                                        field-type="number" is-input=true placeholder="Phone Number" max-length="15" is-no-label=true
+                                                                        is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item><!--field-name="PhoneNumber__c" field-variant="label-hidden" object-api-name="Account" field-label="New Phone Number"-->
+                    </lightning-layout>
+                    <!--New Fax-->
+                    <lightning-layout>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newFaxCode"
+                                field-label="New Fax &nbsp;&nbsp;&nbsp;&nbsp;" placeholder="Fax Country Code"
+                                field-variant="label-hidden" is-input=true is-label-one-line= true  max-length="3"
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newFaxAreaCode"
+                                is-input=true  field-type="number" placeholder="Fax Area Code" max-length="8" is-no-label=true
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field element-id="newFaxNumber" field-variant="label-hidden"
+                                                                        field-type="number" is-input=true placeholder="Fax Number" max-length="15" is-no-label=true
+                                                                        is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item><!--field-name="PhoneNumber__c" field-variant="label-hidden" object-api-name="Account" field-label="New Phone Number"-->
+                    </lightning-layout>
+                    <!--New Mobile-->
+                    <lightning-layout>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newMobileCode"
+                                field-label="New Mobile" placeholder="Mobile Country Code"
+                                field-variant="label-hidden" is-input=true is-label-one-line= true  max-length="3"
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field
+                                element-id="newMobileAreaCode"
+                                is-input=true  field-type="number" placeholder="Mobile Area Code" max-length="8" is-no-label=true
+                                is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item>
+                        <lightning-layout-item><c-lightning-input-field element-id="newMobileNumber" field-variant="label-hidden"
+                                                                        field-type="number" is-input=true placeholder="Mobile Number" max-length="15" is-no-label=true
+                                                                        is-required=false onvalueselected={handleValueSelected}></c-lightning-input-field></lightning-layout-item><!--field-name="PhoneNumber__c" field-variant="label-hidden" object-api-name="Account" field-label="New Phone Number"-->
+                    </lightning-layout>
+                    <div class="slds-col slds-size_1-of-3"></div>
+                    <br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Account Phone</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Contact</div><br/>
+                    <div class="slds-text-heading_small slds-text-title_bold">Online Contact</div><br/>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+        <br/>
+        <div class="slds-m-around_medium slds-align_absolute-center">
+            <lightning-button variant="Neutral" label="Verify" class="slds-m-around_xxx-small"
+                              title="Verify" onclick={handleVerify}></lightning-button>
+            <lightning-button variant="Neutral" label="Cancel" class="slds-m-around_xxx-small"
+                              title="Cancel" onclick={handleCancel}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

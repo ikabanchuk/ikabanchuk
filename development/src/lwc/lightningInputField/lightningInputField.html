@@ -1,0 +1,82 @@
+<!-- Lightning Input Field Utility-->
+<template>
+    <template if:true={isPicklist}>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label">
+                <template if:true={isRequired}>
+                    <abbr title="required">*</abbr>
+                </template>
+                <span class="">{fieldLabel}</span>
+            </label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select class="slds-select"
+                            onchange={handleFieldChangePicklist}
+                            disabled={isPicklistDisabled}
+                            required={isRequired}>
+                        <option value="Select">Select</option>
+                        <template for:each={options} for:item="option">
+                            <option key={option.label} value={option.value}>{option.value}</option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={isInputField}>
+        <template if:true={isRequired}>
+            <label for="elementIdRequired">{fieldLabel}</label>
+            <lightning-record-edit-form object-api-name={objectApiName} id="elementIdRequired">
+                <lightning-input-field field-name={fieldName}
+                                       variant={fieldVariant}
+                                       value={value}
+                                       onchange={handleFieldChange}
+                                       required></lightning-input-field>
+            </lightning-record-edit-form>
+        </template>
+        <template if:false={isRequired}>
+            <label for="elementId">{fieldLabel}</label>
+            <lightning-record-edit-form object-api-name={objectApiName} id="elementId">
+                <lightning-input-field field-name={fieldName}
+                                       variant={fieldVariant}
+                                       value={value}
+                                       onchange={handleFieldChange}></lightning-input-field>
+            </lightning-record-edit-form>
+        </template>
+    </template>
+    <template if:true={isInput}>
+        <template if:true={isLabelOneLine}>
+            <!--add grid and allign right-->
+            <lightning-layout>
+                <lightning-layout-item>
+                    <label class="slds-form-element__label slds-p-top_medium slds-text-align_right">
+                        <span>{fieldLabel}</span><!--/lightning-formatted-rich-text-->
+                    </label>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-input type={fieldType}
+                                     max-length={maxLength}
+
+                                     value={value}
+                                     placeholder={placeholder}>
+                    </lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+        <template if:true={isLabel}>
+            <lightning-input type={fieldType}
+                             label={fieldLabel}
+                             max-length={maxLength}
+                             value={value}
+                             placeholder={placeholder}>
+            </lightning-input>
+        </template>
+        <template if:true={isNoLabel}>
+            <lightning-input type={fieldType}
+                             max-length={maxLength}
+                             value={value}
+                             placeholder={placeholder}>
+            </lightning-input>
+        </template>
+    </template>
+</template>

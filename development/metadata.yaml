@@ -1,0 +1,11 @@
+id: salesforce
+name: salesforce
+description: "Sample development"
+type: application
+owners: ikabanchuk@gmail.com
+product: "development"
+availability: true
+integrity: true
+exposure:
+ - platform
+lifecycle: ga

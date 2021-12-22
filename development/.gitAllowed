@@ -1,0 +1,4 @@
+#Whitelisting settings and custom settings
+settings.*
+custSettings.*
+

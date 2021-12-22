@@ -1,0 +1,21 @@
+# The package itself
+src/package.xml
+src/objects
+
+# IntelliJ w/ Illuminated Cloud
+.idea/
+IlluminatedCloud/
+*.iml
+
+# Eclipse w/ Force.com IDE
+.settings/
+Referenced Packages/
+.project
+salesforce.schema
+
+# Sublime Text w/ MavensMate
+config/
+debug/
+deploy/
+*.sublime-*
+mm.log

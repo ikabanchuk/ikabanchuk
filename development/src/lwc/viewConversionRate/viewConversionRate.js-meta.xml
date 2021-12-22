@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="viewConversionRate">
+    <apiVersion>52.0</apiVersion>
+    <description>View Conversion Rate</description>
+    <isExposed>true</isExposed>
+    <masterLabel>View Conversion Rate</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage">
+            <property name="baseCode" type="String" label="Base Currency Code"
+                      description="Enter the three-letter currency code of your preferred base currency." default="EUR"/>
+            <property name="componentMainLogo" type="String" label="Standard Icon"
+                      description="Standard Icon Name to Show." default="standard:announcement"/>
+            <property name="componentTitle" type="String" label="Component Title"
+                      description="Component Title." default="Base Currency Conversion"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

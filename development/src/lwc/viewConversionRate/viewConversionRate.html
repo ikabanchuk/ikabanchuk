@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title={componentTitle} icon-name={componentMainLogo}>
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+        <div class="slds-m-around_medium">
+            <template if:true={conversionRate}>
+                <p>
+                    <dev class="slds-align_absolute-left">
+                        {opportunityName}<br/>
+                        Amount: {amount} {currencyIsoCode}<br/>
+                        Conversion Rate: {conversionRate}<br/>
+                        Converted Amount: {conversionRateAmount} {baseCode}
+                    </dev>
+                </p>
+            </template>
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+    </lightning-card>
+</template>
