@@ -1,7 +1,0 @@
-# Ensure that all Salesforce source files have normalized line endings.
-*-meta.xml text=auto eol=lf
-*.cls text=auto eol=lf
-*.component text=auto eol=lf
-*.page text=auto eol=lf
-*.trigger text=auto eol=lf
-*.resource binary
